@@ -414,7 +414,7 @@ export default class CanvasDraw extends PureComponent {
     this.interactionSM = this.interactionSM.handleDrawStart(e, this);
     this.mouseHasMoved = true;
 
-    this.onMouseDown && this.onMouseDown()
+    this.props.onMouseDown && this.props.onMouseDown(this);
   };
 
   handleDrawMove = (e) => {
@@ -426,7 +426,7 @@ export default class CanvasDraw extends PureComponent {
     this.interactionSM = this.interactionSM.handleDrawEnd(e, this);
     this.mouseHasMoved = true;
 
-    this.onMouseUp && this.onMouseUp()
+    this.props.onMouseUp && this.props.onMouseUp(this);
   };
 
   applyView = () => {
