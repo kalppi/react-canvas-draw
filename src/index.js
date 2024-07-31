@@ -38,6 +38,8 @@ const boundsProp = PropTypes.shape({
 export default class CanvasDraw extends PureComponent {
   static propTypes = {
     onChange: PropTypes.func,
+    onMouseDown: PropTypes.func,
+    onMouseUp: PropTypes.func,
     loadTimeOffset: PropTypes.number,
     lazyRadius: PropTypes.number,
     brushRadius: PropTypes.number,
@@ -66,6 +68,8 @@ export default class CanvasDraw extends PureComponent {
 
   static defaultProps = {
     onChange: null,
+    onMouseDown: null,
+    onMouseUp: null,
     loadTimeOffset: 5,
     lazyRadius: 12,
     brushRadius: 10,
@@ -409,6 +413,8 @@ export default class CanvasDraw extends PureComponent {
   handleDrawStart = (e) => {
     this.interactionSM = this.interactionSM.handleDrawStart(e, this);
     this.mouseHasMoved = true;
+
+    this.onMouseDown && this.onMouseDown()
   };
 
   handleDrawMove = (e) => {
@@ -419,6 +425,8 @@ export default class CanvasDraw extends PureComponent {
   handleDrawEnd = (e) => {
     this.interactionSM = this.interactionSM.handleDrawEnd(e, this);
     this.mouseHasMoved = true;
+
+    this.onMouseUp && this.onMouseUp()
   };
 
   applyView = () => {
