@@ -64,6 +64,7 @@ export default class CanvasDraw extends PureComponent {
     mouseZoomFactor: PropTypes.number,
     zoomExtents: boundsProp,
     clampLinesToDocument: PropTypes.bool,
+    className: PropTypes.string
   };
 
   static defaultProps = {
@@ -94,13 +95,14 @@ export default class CanvasDraw extends PureComponent {
     mouseZoomFactor: 0.01,
     zoomExtents: { min: 0.33, max: 3 },
     clampLinesToDocument: false,
+    className: ''
   };
 
   ///// public API /////////////////////////////////////////////////////////////
 
   constructor(props) {
     super(props);
-
+  
     this.canvas = {};
     this.ctx = {};
 
@@ -624,6 +626,8 @@ export default class CanvasDraw extends PureComponent {
 
   loop = ({ once = false } = {}) => {
     if (this.mouseHasMoved || this.valuesChanged) {
+      if (!this.lazy) return
+
       const pointer = this.lazy.getPointerCoordinates();
       const brush = this.lazy.getBrushCoordinates();
 
